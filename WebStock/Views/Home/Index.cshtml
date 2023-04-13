@@ -4,24 +4,29 @@
 
 <div class="text-center">
     <section class="MainMenu nav-justified d-inline-flex">
+        <a asp-controller="Product" asp-action="Products">
         <section class="MenuItem align-items-center">
             <h6><strong>Registro</strong></h6>
             <img class="MenuIcon" src="~/src/img/registro.png" />
         </section>
-
-        <section class="MenuItem align-items-center">
+        </a>
+        <a>
+            <section class="MenuItem align-items-center">
             <h6><strong>Inventario</strong></h6>
-            <img class="MenuIcon" src="~/src/img/consulta.png"/>
-        </section>
-
+           <img class="MenuIcon" src="~/src/img/consulta.png"/>
+            </section>
+        </a>
+        <a>
         <section class="MenuItem align-items-center">
             <h6><strong>Salidas</strong></h6>
             <img class="MenuIcon" src="~/src/img/bandeja-de-salida.png" />
         </section>
-
+        </a>
+        <a>
         <section class="MenuItem align-items-center">
             <h6><strong>Faltantes</strong></h6>
             <img class="MenuIcon" src="~/src/img/empty.png" />
         </section>
+        </a>
     </section>
 </div>

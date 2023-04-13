@@ -1,36 +1,35 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using WebStock.Models;
 
 namespace WebStock.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+        private readonly HttpClient _HttpClient;
+        private readonly string APIUrl;
+
+        public ProductController(IConfiguration IConfiguration, HttpClient HttpClient) 
         {
-            return View();
+             APIUrl = IConfiguration.GetValue<string>("APIUrl");
+            _HttpClient = HttpClient;
+        }
+        public ActionResult Products()
+        {
+            return View(new Product());
         }
 
-        // GET: ProductController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ProductController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ProductController/Create
+      
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> CreateProduct(Product product)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                HttpResponseMessage response = await _HttpClient.PostAsJsonAsync($"{APIUrl}ProductWebService/", product);
+                response.EnsureSuccessStatusCode();
+
+                return View("Products",new Product());
             }
             catch
             {
@@ -38,46 +37,7 @@ namespace WebStock.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: ProductController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+     
     }
 }

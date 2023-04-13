@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model Product;
+    <section class="align-items-center align-content-center MainFormProduc">
+    
+    <section class="formView">
+            <h2>Registro de productos</h2>
+            <br />
+
+            @using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post, new { id = "FormProduct" }))
+            {
+
+      <div class="mb-3">
+       <label for="Product" class="form-label">Producto</label>
+          <input type="text" class="form-control" required placeholder="Ingrese el nombre del producto" name="Producto" value="@Model.Producto" id="Product" aria-describedby="emailHelp">
+                    
+      </div>
+      <div class="mb-3">
+        <label for="NumLote" class="form-label">Lote</label>
+                <input placeholder="Número de lote" required type="number" name="NumeroLote" value="@Model.NumeroLote" class="form-control" id="NumLote">
+      </div>
+                <div class="mb-3">
+                    <label for="Canti" class="form-label">Cantidad</label>
+                    <input placeholder="Número de lote" required type="number" name="Cantidad" value="@Model.Cantidad" class="form-control" id="Canti">
+                </div>
+
+        <div class="mb-3">
+            <label for="DateFabri" class="form-label">Fecha de fabricación</label>
+                <input type="date" class="form-control" required name="FechaFabricacion" value="@Model.FechaFabricacion" id="DateFabri">
+        </div>
+
+        <div class="mb-3">
+            <label for="Provedor" class="form-label">Provedor</label>
+                <input placeholder="Información completa del provedor" required name="Provedor" value="@Model.Provedor" type="text" class="form-control" id="Provedor">
+        </div>
+
+        <div class="mb-3">
+            <label for="Caduca" class="form-label">Fecha de caducidad del lote</label>
+                <input type="date" class="form-control" required name="FechaCaducidad" value="@Model.FechaCaducidad" id="Caduca">
+        </div>
+
+      <button type="submit" class="btn btn-primary">Registrar</button>
+      }
+    </section>
+    </section>
+}

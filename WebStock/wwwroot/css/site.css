@@ -17,6 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
+body a{
+    text-decoration:none;
+}
+
 .MenuItem{
   padding:23px;
   border-radius:60px;
@@ -32,11 +36,22 @@ body {
 }
 
 .MenuItem:hover {
-    background-color: rgb(113, 124, 251);
+    background-color: rgb(0, 107, 177);
     transition: 300ms all;
 }
 
-.MenuIcon{
-   width:40px;
-   height:40px;
+.MainFormProduc{
+    margin: 0 auto;
+}
+
+.formView {
+    width: 65%;
+    padding:30px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.MenuIcon {
+    width: 40px;
+    height: 40px;
 }

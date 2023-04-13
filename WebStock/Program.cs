@@ -1,7 +1,13 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Net.Http;
+using WebStock.DB;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<ICommandRegProduct, CommandRegProduct>();
 
 var app = builder.Build();
 
@@ -12,6 +18,14 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//Configuracion e inyeccion de IConfiguration
+
+var configBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
+
+IConfiguration configuracion = configBuilder.Build();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

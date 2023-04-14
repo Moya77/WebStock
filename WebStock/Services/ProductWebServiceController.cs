@@ -18,13 +18,32 @@ namespace WebStock.Services
             _ICommandRegProduct = ICommandRegProduct;
         }
 
+        [HttpGet("GetProductos")]
+        public async Task<List<string>> GetProducts() {
+
+            return new List<string>() { "ATUNES TESORO DEL MAR","MASA JUANA","PASTA ROMA"};
+        
+        }
+
+        [HttpGet("GetProvedores")]
+        public async Task<List<string>> GetProvedores()
+        {
+
+            return new List<string>() { "MAYCA", "EL ARREO", "QUESOS DON BETO" };
+
+        }
+
 
         [HttpPost]
-        public void RegProduct([FromBody] Product product)
+        public string RegProduct([FromBody] Product product)
         {
             if (product != null)
             {
-            _ICommandRegProduct.InsertProduct(product);
+                return _ICommandRegProduct.InsertProduct(product);
+            }
+            else
+            {
+                return "Error al procesar la entrada, el producto ingreso como Nulo!";
             }
         }
 

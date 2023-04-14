@@ -2,11 +2,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    @model Product;
+    @model ModelEntradaProducto;
     <section class="align-items-center align-content-center MainFormProduc">
     
     <section class="formView">
-            <h2>Registro de productos</h2>
+            <h2>Ingreso de productos</h2>
             <br />
 
             @using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post, new { id = "FormProduct" }))
@@ -14,35 +14,58 @@
 
       <div class="mb-3">
        <label for="Product" class="form-label">Producto</label>
-          <input type="text" class="form-control" required placeholder="Ingrese el nombre del producto" name="Producto" value="@Model.Producto" id="Product" aria-describedby="emailHelp">
-                    
+          <input list="ProductsList" type="text" onchange="CheckForm()" class="form-control" required placeholder="Ingrese el nombre del producto" name="Producto" value="@Model.producto.Producto" id="Product" aria-describedby="emailHelp">
+                <datalist id="ProductsList">
+                </datalist>    
       </div>
       <div class="mb-3">
         <label for="NumLote" class="form-label">Lote</label>
-                <input placeholder="Número de lote" required type="number" name="NumeroLote" value="@Model.NumeroLote" class="form-control" id="NumLote">
+                    <input placeholder="Número de lote" onchange="CheckForm()" required type="number" name="NumeroLote" value="@Model.producto.NumeroLote" class="form-control" id="NumLote">
       </div>
                 <div class="mb-3">
                     <label for="Canti" class="form-label">Cantidad</label>
-                    <input placeholder="Número de lote" required type="number" name="Cantidad" value="@Model.Cantidad" class="form-control" id="Canti">
+                    <input placeholder="Número de lote" onchange="CheckForm()" required type="number" name="Cantidad" value="@Model.producto.Cantidad" class="form-control" id="Canti">
                 </div>
 
         <div class="mb-3">
             <label for="DateFabri" class="form-label">Fecha de fabricación</label>
-                <input type="date" class="form-control" required name="FechaFabricacion" value="@Model.FechaFabricacion" id="DateFabri">
+                    <input type="date" class="form-control" onchange="CheckForm()" required name="FechaFabricacion" value="@Model.producto.FechaFabricacion" id="DateFabri">
         </div>
 
         <div class="mb-3">
             <label for="Provedor" class="form-label">Provedor</label>
-                <input placeholder="Información completa del provedor" required name="Provedor" value="@Model.Provedor" type="text" class="form-control" id="Provedor">
-        </div>
+                    <input list="ProvedorsList" onclick="loadProvedores()" onchange="CheckForm()" placeholder="Información completa del provedor" required name="Provedor" value="@Model.producto.Provedor" type="text" class="form-control" id="Provedor">
+                    <datalist id="ProvedorsList">
+                </datalist>
+                </div>
 
         <div class="mb-3">
             <label for="Caduca" class="form-label">Fecha de caducidad del lote</label>
-                <input type="date" class="form-control" required name="FechaCaducidad" value="@Model.FechaCaducidad" id="Caduca">
+                    <input type="date" class="form-control" onchange="CheckForm()" required name="FechaCaducidad" value="@Model.producto.FechaCaducidad" id="Caduca">
         </div>
 
-      <button type="submit" class="btn btn-primary">Registrar</button>
+      <button id="btnSubmit" disabled="true" type="button" class="btn btn-primary">Registrar</button>
       }
     </section>
+    @if(Model.messaje.Length>0){
+        <div class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 style="color:blue" class="modal-title" id="staticBackdropLabel">Resultado de la operación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body align-content-center text-center" >
+                    <h3 style="color:dimgray">@Model.messaje</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+
     </section>
 }

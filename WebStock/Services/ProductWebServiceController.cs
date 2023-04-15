@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using WebStock.DB;
 using WebStock.Models;
 
@@ -12,10 +13,13 @@ namespace WebStock.Services
     {
 
         private readonly ICommandRegProduct _ICommandRegProduct;
+        private readonly IQueryGetInfoLote _IQueryGetInfoLote;
 
-        public ProductWebServiceController(ICommandRegProduct ICommandRegProduct)
+        public ProductWebServiceController(ICommandRegProduct ICommandRegProduct,
+                                           IQueryGetInfoLote IQueryGetInfoLote)
         {
             _ICommandRegProduct = ICommandRegProduct;
+            _IQueryGetInfoLote = IQueryGetInfoLote;
         }
 
         [HttpGet("GetProductos")]
@@ -30,6 +34,14 @@ namespace WebStock.Services
         {
 
             return new List<string>() { "MAYCA", "EL ARREO", "QUESOS DON BETO" };
+
+        }
+
+        [HttpGet("GetInfoLote")]
+        public async Task<List<InformeLote>> GetInfoLote(int NumLote)
+        {
+
+            return _IQueryGetInfoLote.GetInfoLote(NumLote);
 
         }
 

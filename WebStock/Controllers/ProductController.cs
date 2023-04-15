@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Data;
 using System.Text.Json.Serialization;
 using WebStock.Models;
 
@@ -12,9 +13,9 @@ namespace WebStock.Controllers
         private readonly HttpClient _HttpClient;
         private readonly string APIUrl;
 
-        public ProductController(IConfiguration IConfiguration, HttpClient HttpClient) 
+        public ProductController(IConfiguration IConfiguration, HttpClient HttpClient)
         {
-             APIUrl = IConfiguration.GetValue<string>("APIUrl");
+            APIUrl = IConfiguration.GetValue<string>("APIUrl");
             _HttpClient = HttpClient;
         }
         public ActionResult Products()

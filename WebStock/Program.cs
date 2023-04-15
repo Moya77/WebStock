@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ICommandRegProduct, CommandRegProduct>();
+builder.Services.AddScoped<IQueryGetInfoLote, QueryGetInfoLote>();
 
 var app = builder.Build();
 

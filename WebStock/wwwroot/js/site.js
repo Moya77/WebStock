@@ -79,10 +79,13 @@ function loadInventory() {
             fechaVencimiento = parts[2] + "-" + parts[1] + "-" + parts[0];
 
             let fila = TableBody.insertRow();
-            let Nombre = fila.insertCell(0);
-            let Cantidad = fila.insertCell(1);
-            let Vencimiento = fila.insertCell(2);
-            let Estado = fila.insertCell(3);
+            let Lote = fila.insertCell(0);
+            let Nombre = fila.insertCell(1);
+            let Cantidad = fila.insertCell(2);
+            let Vencimiento = fila.insertCell(3);
+            let Estado = fila.insertCell(4);
+
+            Lote.innerHTML = ProductoInventario.lote;
             Nombre.innerHTML = ProductoInventario.producto;
             Cantidad.innerHTML = ProductoInventario.cantidad;
             Vencimiento.innerHTML = FechaVencimiento;
@@ -94,10 +97,42 @@ function loadInventory() {
                 fila.classList.add('bg-danger');
             } else {
                 Estado.innerHTML = "Vigente";
-                fila.classList.add('miClase');
             }
         }
     });
 }
-    
+
+function formatDate(FechaSinFormato) {
+    let FechaFormato = FechaSinFormato.split(' ')[0];
+    let parts = FechaFormato.split('/');
+    if (parts[0].length == 1) {
+        parts[0] = "0" + parts[0];
+    }
+
+    if (parts[1].length == 1) {
+        parts[1] = "0" + parts[1];
+    }
+    FechaFormato = parts[2] + "-" + parts[1] + "-" + parts[0];
+
+    return FechaFormato;
+}
+
+
+function GetLote() {
+    let numLote = $('#NumLote').val();
+    if (numLote <= 0) {
+        numLote = -1;
+    }
+
+    $.get('/Inventario/GetInfoLote?numLote=' + numLote, function (InfoLote) {
+       
+        $('#Product').val(InfoLote[0].producto);
+        $('#Canti').val(InfoLote[0].cantidad);
+        $('#DateFabri').val(formatDate(InfoLote[0].fabricacion));
+        $('#Provedor').val(InfoLote[0].provedor);
+        $('#Caduca').val(formatDate(InfoLote[0].expiracion));
+        
+    });
+}
+
 

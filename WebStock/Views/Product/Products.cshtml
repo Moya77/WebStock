@@ -11,6 +11,11 @@
 
             @using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post, new { id = "FormProduct" }))
             {
+                 <div class="mb-3">
+                    <label for="NumLote" class="form-label">Número de lote a registrar</label>
+                    <input onfocusout="GetLote()" onchange="CheckForm()" required type="number" name="producto.NumeroLote" value="@Model.producto.NumeroLote" class="form-control" id="NumLote">
+                    <small class="form-text text-muted">Ingresá un lote existente para editar la información</small>
+                    </div>
 
       <div class="mb-3">
        <label for="Product" class="form-label">Producto</label>
@@ -18,10 +23,7 @@
                 <datalist id="ProductsList">
                 </datalist>    
       </div>
-      <div class="mb-3">
-        <label for="NumLote" class="form-label">Lote</label>
-                    <input placeholder="Número de lote" onchange="CheckForm()" required type="number" name="producto.NumeroLote" value="@Model.producto.NumeroLote" class="form-control" id="NumLote">
-      </div>
+     
                 <div class="mb-3">
                     <label for="Canti" class="form-label">Cantidad</label>
                     <input placeholder="Número de lote" onchange="CheckForm()" required type="number" name="producto.Cantidad" value="@Model.producto.Cantidad" class="form-control" id="Canti">

@@ -36,9 +36,13 @@ namespace WebStock.DB
 
                                 lotes.Add(new InformeLote()
                                 {
+                                    
                                     Producto = reader["Nombre"].ToString(),
                                     Cantidad = Int32.Parse(reader["Cantidad"].ToString()),
-                                    Expiracion = reader["Fecha_expiracion"].ToString()
+                                    Expiracion = reader["Fecha_expiracion"].ToString(),
+                                    Lote = Int32.Parse(reader["Numero_lote"].ToString()),
+                                    Provedor = reader["Nombre_provedor"].ToString(),
+                                    Fabricacion = reader["Fecha_fabricacion"].ToString()
                                 });
                             }
                             return lotes;

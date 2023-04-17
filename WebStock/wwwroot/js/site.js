@@ -60,6 +60,16 @@ function CheckForm() {
     }
 }
 
+function CheckFormSalida() {
+    let form = document.getElementById("FormSalidas");
+    let buttonSubmit = $('#btnSubmitSalidas');
+    if (form.checkValidity()) {
+        buttonSubmit.prop('disabled', false);
+    } else {
+        buttonSubmit.prop('disabled', true);
+    }
+}
+
 $(document).ready(function () {
     $('.modal').modal('show');
 });
@@ -87,7 +97,14 @@ function loadInventory() {
 
             Lote.innerHTML = ProductoInventario.lote;
             Nombre.innerHTML = ProductoInventario.producto;
-            Cantidad.innerHTML = ProductoInventario.cantidad;
+
+            if (ProductoInventario.cantidad <= 0) {
+                Cantidad.innerHTML = ProductoInventario.cantidad;
+                fila.classList.add("bg-info");
+            } else {
+                Cantidad.innerHTML = ProductoInventario.cantidad;
+            }
+            
             Vencimiento.innerHTML = FechaVencimiento;
             if (dateDiff(fechaActual, fechaVencimiento) <= 10) {
                 Estado.innerHTML = "Apunto de vencer";
@@ -125,12 +142,20 @@ function GetLote() {
     }
 
     $.get('/Inventario/GetInfoLote?numLote=' + numLote, function (InfoLote) {
-       
-        $('#Product').val(InfoLote[0].producto);
-        $('#Canti').val(InfoLote[0].cantidad);
-        $('#DateFabri').val(formatDate(InfoLote[0].fabricacion));
-        $('#Provedor').val(InfoLote[0].provedor);
-        $('#Caduca').val(formatDate(InfoLote[0].expiracion));
+
+        if (InfoLote.length > 0) {
+            $('#Product').val(InfoLote[0].producto);
+            $('#Canti').val(InfoLote[0].cantidad);
+            $('#DateFabri').val(formatDate(InfoLote[0].fabricacion));
+            $('#Provedor').val(InfoLote[0].provedor);
+            $('#Caduca').val(formatDate(InfoLote[0].expiracion));
+        } else {
+            $('#Product').val("");
+            $('#Canti').val(0);
+            $('#DateFabri').val("");
+            $('#Provedor').val("");
+            $('#Caduca').val("");
+        }
         
     });
 }

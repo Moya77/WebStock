@@ -14,26 +14,39 @@ namespace WebStock.Services
 
         private readonly ICommandRegProduct _ICommandRegProduct;
         private readonly IQueryGetInfoLote _IQueryGetInfoLote;
+        private readonly ICommandRegSalidaProducto _ICommandRegSalidaProducto;
+        private readonly IQueryGetFaltantes _IQueryGetFaltantes;
+        private readonly IQueryGetProvedores _IQueryGetProvedores;
+        private readonly IQueryGetProductos _IQueryGetProductos;
 
         public ProductWebServiceController(ICommandRegProduct ICommandRegProduct,
-                                           IQueryGetInfoLote IQueryGetInfoLote)
+                                           IQueryGetInfoLote IQueryGetInfoLote,
+                                           ICommandRegSalidaProducto iCommandRegSalidaProducto,
+                                           IQueryGetFaltantes iQueryGetFaltantes,
+                                           IQueryGetProvedores iQueryGetProvedores,
+                                           IQueryGetProductos iQueryGetProductos)
         {
             _ICommandRegProduct = ICommandRegProduct;
             _IQueryGetInfoLote = IQueryGetInfoLote;
+            _ICommandRegSalidaProducto = iCommandRegSalidaProducto;
+            _IQueryGetFaltantes = iQueryGetFaltantes;
+            _IQueryGetProvedores = iQueryGetProvedores;
+            _IQueryGetProductos = iQueryGetProductos;
         }
 
         [HttpGet("GetProductos")]
         public async Task<List<string>> GetProducts() {
 
-            return new List<string>() { "ATUNES TESORO DEL MAR","MASA JUANA","PASTA ROMA"};
-        
+            return _IQueryGetProductos.GetProductos();
+
+
         }
 
         [HttpGet("GetProvedores")]
         public async Task<List<string>> GetProvedores()
         {
 
-            return new List<string>() { "MAYCA", "EL ARREO", "QUESOS DON BETO" };
+            return _IQueryGetProvedores.GetProvedores();
 
         }
 
@@ -42,6 +55,14 @@ namespace WebStock.Services
         {
 
             return _IQueryGetInfoLote.GetInfoLote(NumLote);
+
+        }
+
+        [HttpGet("GetFaltantes")]
+        public async Task<List<InformeLote>> GetFaltantes(int NumLote)
+        {
+
+            return _IQueryGetFaltantes.GetFaltantes();
 
         }
 
@@ -59,6 +80,19 @@ namespace WebStock.Services
             }
         }
 
-        
+        [HttpPost("MoverProducto")]
+        public string MoverProducto([FromBody] SalidaInventario salida)
+        {
+            if (salida != null)
+            {
+                return _ICommandRegSalidaProducto.RegSalidaProducto(salida);
+            }
+            else
+            {
+                return "Error al procesar la entrada, el producto ingreso como Nulo!";
+            }
+        }
+
+
     }
 }

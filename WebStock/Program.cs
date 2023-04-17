@@ -9,6 +9,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ICommandRegProduct, CommandRegProduct>();
 builder.Services.AddScoped<IQueryGetInfoLote, QueryGetInfoLote>();
+builder.Services.AddScoped<ICommandRegSalidaProducto, CommandRegSalidaProducto>();
+builder.Services.AddScoped<IQueryGetFaltantes, QueryGetFaltantes>();
+builder.Services.AddScoped<IQueryGetProductos, QueryGetProductos>();
+builder.Services.AddScoped<IQueryGetProvedores, QueryGetProvedores>();
 
 var app = builder.Build();
 
